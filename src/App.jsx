@@ -55,7 +55,20 @@ const App = () => {
   };
 
   const handleDeletePet = async (petId) => {
-    
+    try {
+      const deletedPet = await petService.deletePet(petId);
+
+      if (deletedPet.err) {
+        throw new Error(deletedPet.err);
+      };
+
+      setPets(pets.filter((pet) => pet._id !== deletedPet._id));
+      
+      setSelected(null);
+      setIsFormOpen(false);
+    } catch (err) {
+      console.log(err);
+    };
   };
 
   useEffect(() => {
@@ -70,7 +83,7 @@ const App = () => {
         setPets(fetchedPets);
       } catch (err) {
         console.log(err);
-      }
+      };
     };
 
     fetchPets();
@@ -93,7 +106,9 @@ const App = () => {
       ) : (
         <PetDetail
         handleFormView={handleFormView}
-        selected={selected} />
+        selected={selected}
+        handleDeletePet={handleDeletePet}
+        />
       )}
     </>
   );
