@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import './App.css';
 import * as petService from './services/petService.js';
 import PetList from "./components/PetList/PetList.jsx";
 import PetDetail from './components/PetDetail/PetDetail.jsx';
